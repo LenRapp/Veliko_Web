@@ -57,15 +57,24 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
+        const userIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         try {
-            map.locate({ setView: true, maxZoom: 16 });
+            map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });
 
             map.on('locationfound', (e) => {
-                L.marker(e.latlng).addTo(map).bindPopup(`
-                            <div>
-                               <p><strong>Vous êtes là</strong></p>
-                            </div>
-                        `)
+                L.marker(e.latlng, { icon: userIcon }).addTo(map).bindPopup(`
+            <div>
+                <p><strong>Vous êtes là</strong></p>
+            </div>
+            `)
             });
 
             map.on('locationerror', (e) => {
@@ -74,6 +83,24 @@
         } catch (error) {
             console.error('Erreur lors de la tentative de géolocalisation :', error);
         }
+    </script>
+
+
+    <script>
+        {% if stations is not empty %}
+        {% for station in stations %}
+        {% set s = station.fields %}
+        let marker_station{{ loop.index }} = L.marker([{{ s.coordonnees_geo[0] }}, {{ s.coordonnees_geo[1] }}]).addTo(map);
+        marker_station{{ loop.index }}.bindPopup(`
+        <b>{{ s.name }}</b><br>
+        Vélos disponibles : {{ s.numbikesavailable }}<br>
+        Mécaniques : {{ s.mechanical }}<br>
+        Electriques : {{ s.ebike }}
+    `);
+        {% endfor %}
+        {% else %}
+        console.warn("Aucune station trouvée.");
+        {% endif %}
     </script>
 
 {% endblock %}
