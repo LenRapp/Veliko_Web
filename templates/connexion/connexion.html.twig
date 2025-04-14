@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Veliko{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/connexion.css') }}">
+{% endblock %}
+{% block body %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Connexion - Veliko</title>
+    </head>
+    <body>
+
+    <header>
+        Bienvenue sur Veliko 🚲
+    </header>
+
+    <div class="container">
+        <div class="form-box">
+            <h2>Connexion</h2>
+            <form action="/traitement-connexion" method="POST">
+                <div class="form-group">
+                    <label for="email">Adresse Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="motdepasse">Mot de passe</label>
+                    <input type="password" id="motdepasse" name="motdepasse" required>
+                </div>
+                <button type="submit" class="submit-btn">Se connecter</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2025 Veliko. Tous droits réservés.
+    </div>
+
+    </body>
+{% endblock %}
+
