@@ -41,11 +41,43 @@
             border-radius: 0 10px 10px 0;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        .header-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            position: absolute;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
+        }
     </style>
 
     <header>
-        Bienvenue sur Veliko 🚲
+        <div class="header-content">
+            <div class="title">Bienvenue Veliko 🚲</div>
+            <nav class="nav-links">
+                <a href="/inscription">Inscription</a>
+                <a href="/connexion">Connexion</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
     </header>
+
 
     <div class="map-container">
         <div id="map"></div>
